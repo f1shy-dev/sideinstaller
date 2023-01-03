@@ -39,5 +39,5 @@ xcrun clang -O0 -ffunction-sections -fdata-sections -fPIC -g -x objective-c -tar
 
 ### more useful links (for me to remember?)
 
-<https://github.com/vtky/AppleIDAuth/blob/master/AppleID%20Authentication.md>
-<https://github.com/rileytestut/AltServer-Windows/>
+- <https://github.com/vtky/AppleIDAuth/blob/master/AppleID%20Authentication.md>
+- <https://github.com/rileytestut/AltServer-Windows/>
