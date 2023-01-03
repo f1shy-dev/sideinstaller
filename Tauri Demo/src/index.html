@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tauri App</title>
+    <script type="module" src="main.js" defer></script>
+  </head>
+
+  <body
+    class="bg-[#2f2f2f] font-['Poppins'] overflow-x-hidden scrollbar-thin scrollbar-track-transparent scrollbar-thumb-neutral-800"
+  >
+    <div class="flex flex-col w-screen px-6 items-center">
+      <h1 class="text-white text-2xl font-semibold mt-4">InstallerDemo</h1>
+
+      <div class="flex gap-2 mt-2">
+        <button
+          id="get-devices"
+          class="bg-[#0f0f0f] text-white px-3 py-2 rounded-lg"
+          type="button"
+        >
+          Get Devices
+        </button>
+        <button
+          id="get-anisette-mac"
+          type="button"
+          class="bg-[#0f0f0f] text-white px-3 py-2 rounded-lg"
+        >
+          Get AOSKit Anisette
+        </button>
+
+        <button
+          id="clear-log"
+          type="button"
+          class="bg-[#0f0f0f] text-white px-3 py-2 rounded-lg"
+        >
+          Clear Log
+        </button>
+      </div>
+
+      <div class="flex gap-2 mt-2" id="device-list"></div>
+
+      <p
+        id="log-window"
+        class="font-mono text-neutral-50 text-xs mt-4 border-2 rounded-lg p-2 border-neutral-800 w-full"
+      >
+        <span class="font-medium text-sm">Log Window</span><br />
+      </p>
+    </div>
+  </body>
+</html>
