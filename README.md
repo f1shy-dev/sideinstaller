@@ -2,7 +2,7 @@
 
 ### tauri project
 
-- files are inside [TauriApp](./tauri-app/)
+- files are inside [`tauri-app`](./tauri-app/)
 - dev with `yarn tauri dev`
 - gets anisette data from crate `anisette-kit` (see below)
 - also uses rusty_libi to list devices in the UI
