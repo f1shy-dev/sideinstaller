@@ -31,6 +31,8 @@
 		53E5652F246881D70018090B /* AOSKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = AOSKit.tbd; sourceTree = "<group>"; };
 		53E56531246B1BD30018090B /* AOSKit.tbd.old */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AOSKit.tbd.old; sourceTree = "<group>"; };
 		7D25CD9229631634000DBE24 /* AKAppleIDSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKAppleIDSession.h; sourceTree = "<group>"; };
+		7D2795012966302000D4D0AF /* NativeAnisetteService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeAnisetteService.h; sourceTree = "<group>"; };
+		7D2D3E96296632850024B769 /* AKURLBag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKURLBag.h; sourceTree = "<group>"; };
 		7DE8246D29630A38000B5E97 /* AOSKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = AOSKit.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/PrivateFrameworks/AOSKit.framework/Versions/A/AOSKit.tbd; sourceTree = DEVELOPER_DIR; };
 		7DE8246F29630A56000B5E97 /* AuthKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = AuthKit.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/PrivateFrameworks/AuthKit.framework/Versions/A/AuthKit.tbd; sourceTree = DEVELOPER_DIR; };
 		7DE8247129630B64000B5E97 /* AKDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKDevice.h; sourceTree = "<group>"; };
@@ -74,6 +76,8 @@
 				7DE8246D29630A38000B5E97 /* AOSKit.tbd */,
 				7DE8246F29630A56000B5E97 /* AuthKit.tbd */,
 				53E56526246873BD0018090B /* main.m */,
+				7D2D3E96296632850024B769 /* AKURLBag.h */,
+				7D2795012966302000D4D0AF /* NativeAnisetteService.h */,
 			);
 			path = AOSKit;
 			sourceTree = "<group>";

@@ -3,6 +3,7 @@
     windows_subsystem = "windows"
 )]
 
+use anisette_kit::base::anisette_data;
 use rusty_libimobiledevice::{
     idevice::{self, Device},
     services::userpref,
@@ -57,13 +58,7 @@ fn export_pairing_file(udid: String) -> String {
 
 #[tauri::command]
 fn get_anisette_macos(handle: tauri::AppHandle) -> String {
-    let resource_path = handle
-        .path_resolver()
-        .resolve_resource("AOSKit")
-        .expect("failed to resolve resource");
-
-    let foo = Command::new(&resource_path).output().unwrap();
-    return format!("{}", String::from_utf8_lossy(&foo.stderr));
+    return anisette_data();
 }
 
 fn main() {

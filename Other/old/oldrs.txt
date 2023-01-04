@@ -1,0 +1,91 @@
+// extern crate objc2;
+// use objc2::runtime::*;
+// use objc2::*;
+// use objc2::{msg_send, Encode, Encoding};
+// use std::ffi::CStr;
+
+// use objc2::{msg_send, msg_send_id, ClassType};
+// use objc2::ffi::NSUInteger;
+// use objc2::rc::{Id, Owned};
+// use objc2::runtime::NSObject;
+
+// #[link(name = "Foundation", kind = "framework")]
+// #[link(name = "AOSKit", kind = "framework")]
+// #[link(name = "AuthKit", kind = "framework")]
+
+// extern "C" {
+//     //aosutilities class
+//     static AOSUtilities: Class;
+// }
+
+// fn retrieve_otp_headers_for_dsid() -> Option<String> {
+//     unsafe {
+//         // init a string of -2
+//         let dsid: *mut Object = msg_send![class!(NSString), stringWithUTF8String: "-2"];
+//         let x_md: *mut Object = msg_send![class!(NSString), stringWithUTF8String: "X-Apple-MD"];
+
+//         println!("dsid: {:?}", dsid.is_null());
+//         let cls = Class::get("AOSUtilities").unwrap();
+//         println!("cls: {:?}", cls.instance_methods().len());
+//         let sel = Sel::register("retrieveOTPHeadersForDSID:");
+//         let aosutils: *mut Object = msg_send![cls, new];
+
+//         let imp: extern "C" fn(*mut Object, Sel, *mut Object) -> *mut Object =
+//             msg_send![aosutils, methodForSelector: sel];
+//         let headers: *mut Object = imp(aosutils, sel, dsid);
+
+//         let imp: extern "C" fn(*mut Object, Sel, *mut Object) -> *mut Object =
+//             msg_send![aosutils, methodForSelector: Sel::register("objectForKey:")];
+//         let string: *mut Object = imp(headers, sel, x_md);
+
+//         // turn that into a c string
+//         let obj: *const i8 = msg_send![string, UTF8String];
+//         let obj = CStr::from_ptr(obj).to_str().unwrap();
+//         Some(obj.to_owned())
+//     }
+// }
+
+// fn main() {
+//     println!("headers: {:?}", retrieve_otp_headers_for_dsid());
+// }
+
+
+        // let current_computer_name: Id<NSObject, Owned> =
+        //     msg_send_id![class!(AOSUtilities), currentComputerName];
+        // let machine_udid: Id<NSObject, Owned> = msg_send_id![class!(AOSUtilities), machineUDID];
+        // let machine_serial_number: Id<NSObject, Owned> =
+        //     msg_send_id![class!(AOSUtilities), machineSerialNumber];
+
+        // println!("currentComputerName: {:?}", current_computer_name);
+        // println!("machineUDID: {:?}", machine_udid);
+        // println!("machineSerialNumber: {:?}", machine_serial_number);
+
+        let aoshelper: Id<NSObject, Owned> = msg_send_id![class!(AOSHelper), getAnisetteData];
+        println!("aoshelper: {:?}", aoshelper);
+
+        // get string "-2" as ID
+        // -2 as a c string
+        // let number: i8 = -1;
+        // let bytes = String::from("Hello, world!") as *const c_char;
+
+        // let rust_string = String::from("-2");
+        // let nsstring_alloc: *mut Object = msg_send![class!(NSString), alloc];
+        // let ns_string: *mut Object =
+        //     msg_send![nsstring_alloc, initWithUTF8String: rust_string.as_ptr() as *const _];
+
+        // let headers: Id<NSObject, Owned> =
+        //     msg_send_id![class!(AOSUtilities), retrieveOTPHeadersForDSID: ns_string];
+        // println!("headers: {:?}", headers);
+
+        // let header_class = class!(AOSUtilities)
+        //     .class_method(sel!(retrieveOTPHeadersForDSID:))
+        //     .unwrap();
+
+        // let dsid = CString::new("123456789").unwrap();
+        // let retrive: Id<NSObject, Owned> =
+        //     msg_send_id![header_class, retrieveOTPHeadersForDSID: dsid];
+
+        // println!("header: {:?}", retrive);
+
+        // Call the method on the object, passing in an argument
+        // let result: Id<NSObject, Owned> = msg_send_id![obj, sel];

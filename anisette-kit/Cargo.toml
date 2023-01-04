@@ -1,0 +1,10 @@
+[package]
+name = "anisette_kit"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+objc2 = "0.3.0-beta.4"
+
+[build-dependencies]
+cc = "1.0.78"

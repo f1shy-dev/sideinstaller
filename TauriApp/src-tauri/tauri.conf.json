@@ -47,9 +47,7 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": [
-        "AOSKit"
-      ],
+      "resources": [],
       "shortDescription": "",
       "targets": "all",
       "windows": {

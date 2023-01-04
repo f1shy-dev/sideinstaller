@@ -33,6 +33,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "anisette_kit"
+version = "0.1.0"
+dependencies = [
+ "cc",
+ "objc2",
+]
+
+[[package]]
 name = "ansi_term"
 version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -145,6 +153,25 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "69cce20737498f97b993470a6e536b8523f0af7892a4f928cceb1ac5e52ebe7e"
 dependencies = [
  "generic-array",
+]
+
+[[package]]
+name = "block-sys"
+version = "0.1.0-beta.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a0a27d75e09d3d1a1b72c2583aaec59db16932ea927846036b24b968d8240c08"
+dependencies = [
+ "objc-sys",
+]
+
+[[package]]
+name = "block2"
+version = "0.2.0-alpha.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "344b33cc92d2c0816f45d61b2dca4a30fb8c84e395a4323397f0965f16f990e1"
+dependencies = [
+ "block-sys",
+ "objc2-encode",
 ]
 
 [[package]]
@@ -1589,6 +1616,32 @@ dependencies = [
 ]
 
 [[package]]
+name = "objc-sys"
+version = "0.2.0-beta.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c0925b3332d2aaa3a78b65b065cf68ab0e1d7527d5f7fe48c7613ce166f1494a"
+
+[[package]]
+name = "objc2"
+version = "0.3.0-beta.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cd23541ef10d7053608da654dcc785e7bba1f9c9a9b3f01abef086e6b18e55af"
+dependencies = [
+ "block2",
+ "objc-sys",
+ "objc2-encode",
+]
+
+[[package]]
+name = "objc2-encode"
+version = "2.0.0-pre.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2612e4d4049c415e4a5de45c1d000df1bcf4782167716db14c3d5d54285da846"
+dependencies = [
+ "objc-sys",
+]
+
+[[package]]
 name = "objc_exception"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2383,6 +2436,9 @@ checksum = "43b2853a4d09f215c24cc5489c992ce46052d359b5109343cbafbf26bc62f8a3"
 name = "sideinst2"
 version = "0.0.0"
 dependencies = [
+ "anisette_kit",
+ "cc",
+ "objc2",
  "rusty_libimobiledevice",
  "serde",
  "serde_json",

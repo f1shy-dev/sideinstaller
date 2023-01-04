@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+#import "AKURLBag.h"
 
 @interface AOSUtilities : NSObject
 + (id)currentComputerName;
@@ -20,6 +21,7 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
+        NSLog(@"%@", [[AKURLBag sharedBag] syncAnisetteURL]);
         AKDevice *device = [AKDevice currentDevice];
         id headers = [AOSUtilities retrieveOTPHeadersForDSID:@"-2"];
 
