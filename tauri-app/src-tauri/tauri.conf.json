@@ -26,8 +26,12 @@
         "all": true,
         "scope": [
           "https://jsonplaceholder.typicode.com/*",
-          "http://*"
+          "https://gsa.apple.com/*",
+          "https://ani.f1sh.me/*"
         ]
+      },
+      "os": {
+        "all": true
       }
     },
     "bundle": {
