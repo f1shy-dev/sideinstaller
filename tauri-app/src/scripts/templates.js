@@ -6,10 +6,10 @@ let deviceCard = `
 >
     <span class="text-sm">{{name}}</span
     ><span class="text-gray-400 text-xs font-mono">UDID: {{udid}}</span>
-    <span class="text-xs mt-2">Actions</span>
+    <span class="text-xs mt-2">Debug Actions</span>
     <div class="flex">
     <button
-        id="pairing"
+        id="pairing-file"
         type="button"
         class="bg-neutral-700 text-white px-2 py-1 rounded-lg text-xs mt-1"
     >
