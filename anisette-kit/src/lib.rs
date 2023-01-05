@@ -1,7 +1,10 @@
+#[cfg(target_os = "macos")]
 extern crate objc2;
 
 pub mod base {
+    #[cfg(target_os = "macos")]
     use objc2::rc::{Id, Owned};
+    #[cfg(target_os = "macos")]
     use objc2::runtime::NSObject;
 
     #[cfg(target_os = "macos")]
@@ -19,7 +22,7 @@ pub mod base {
     }
 
     #[cfg(not(target_os = "macos"))]
-    fn anisette_data() {
-        return;
+    pub fn anisette_data() -> String {
+        return "Not on macOS".to_string();
     }
 }

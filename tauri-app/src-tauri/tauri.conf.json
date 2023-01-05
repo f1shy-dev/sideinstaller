@@ -21,6 +21,13 @@
         "scope": [
           "$RESOURCE/*"
         ]
+      },
+      "http": {
+        "all": true,
+        "scope": [
+          "https://jsonplaceholder.typicode.com/*",
+          "http://*"
+        ]
       }
     },
     "bundle": {

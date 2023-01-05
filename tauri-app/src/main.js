@@ -1,11 +1,14 @@
 const { invoke } = window.__TAURI__.tauri;
-
-let greetInputEl;
-let greetMsgEl;
+const { fetch } = window.__TAURI__.http;
+import srp from "@elliotcourant/srp.js";
+// const response = await fetch("http://localhost:3003/users/2", {
+//   method: "GET",
+//   timeout: 30,
+// });
 
 const log = (msg) => {
   const logEl = document.querySelector("#log-window");
-  logEl.innerHTML += `${new Date().toLocaleTimeString()} ${msg}<br />`;
+  logEl.innerHTML += `[${new Date().toISOString().slice(11, 19)}] ${msg}<br />`;
 };
 
 const template = (html, obj) => {
@@ -36,7 +39,9 @@ let deviceItem = `        <div
 
 (async () => {
   document.querySelector("#get-devices").addEventListener("click", async () => {
-    let devices = JSON.parse(JSON.parse(await invoke("get_devices")));
+    let deviceInvoke = await invoke("get_devices");
+    if (!deviceInvoke.startsWith("{")) return log(deviceInvoke);
+    let devices = JSON.parse(JSON.parse(deviceInvoke)) || [];
     log(JSON.stringify(devices, null, 2));
     document.querySelector("#device-list").innerHTML = devices
       .map((device) =>
@@ -72,4 +77,28 @@ let deviceItem = `        <div
       "#log-window"
     ).innerHTML = `<span class="font-medium text-sm">Log Window</span><br />`;
   });
+
+  document
+    .querySelector("#authenticate")
+    .addEventListener("click", async () => {
+      log(`Authenticating with Apple`);
+
+      const salt = new Uint8Array([123, 235, 5, 4, 65, 97, 43, 100]);
+      const username = "email@test.com";
+      let password = "superSecureP@ssw0rd";
+      log(
+        `generating salt with *****@${
+          username.split("@")[1]
+        } and password ${"*".repeat(password.length)}`
+      );
+
+      const x = await srp.KDFSHA512(salt, username);
+      log(`kdfsha512: ${x}`);
+      const client = new srp.SRP(srp.G4096);
+      await client.Setup(srp.Mode.Client, x, null);
+
+      const A = await client.EphemeralPublic();
+      log(`client public key A: ${A}`);
+      // log(await invoke("authenticate"));
+    });
 })();

@@ -9,7 +9,6 @@ use rusty_libimobiledevice::{
     services::userpref,
 };
 use serde_json::{json, Result, Value};
-use std::process::Command;
 
 // get device name
 #[tauri::command]
@@ -57,7 +56,7 @@ fn export_pairing_file(udid: String) -> String {
 }
 
 #[tauri::command]
-fn get_anisette_macos(handle: tauri::AppHandle) -> String {
+fn get_anisette_macos() -> String {
     return anisette_data();
 }
 
