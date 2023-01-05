@@ -6,34 +6,8 @@ import { getAnisette } from "./scripts/anisette.js";
 import { initWizard } from "./scripts/wizard.js";
 window.DeviceStore = ArrayStore();
 
-
-/*
-  document.querySelector("#device-list").innerHTML = devices
-    .map((device) =>
-      template(deviceCard, {
-        ...device,
-        name: `${device.name}${device.network ? " (Network)" : " (USB)"}`,
-      })
-    )
-    .join("");
-
-  document.querySelectorAll("#device-card").forEach((card) => {
-    card.querySelector(`#pairing`).addEventListener("click", async () => {
-      console.log(`Generating pairing file for ${card.getAttribute("udid")}`);
-
-      console.log(
-        await invoke("export_pairing_file", {
-          udid: card.getAttribute("udid"),
-        })
-      );
-    });
-  });
-  */
-
-
-
 (async () => {
-  initWizard()
+  initWizard();
   // onClick("#get-devices", startDeviceFetch);
   onClick("#get-anisette", getAnisette);
   onClick("#authenticate", authenticate);
