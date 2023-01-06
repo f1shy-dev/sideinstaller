@@ -26,7 +26,9 @@
     "tailwindcss": "^3.2.4"
   },
   "dependencies": {
-    "@elliotcourant/srp.js": "^0.0.5",
+    "@f1shy-dev/srp.js": "https://github.com/f1shy-dev/srp.js",
+    "bigint-conversion": "^2.3.0",
+    "plist": "^3.0.6",
     "srp-js": "^0.2.1"
   }
 }

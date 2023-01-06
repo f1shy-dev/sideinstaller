@@ -1,22 +1,59 @@
-import srp from "srp-js";
+import srp from "@f1shy-dev/srp.js";
+import { getAnisette } from "./anisette";
+import { build as buildPlist } from "plist";
+import { bigintToBase64 } from "bigint-conversion";
+const { fetch, Body: TauriBody } = window.__TAURI__.http;
 
+const authFetch = async (anisette, params) => {
+  let body = {
+    Header: {
+      Version: "1.0.1",
+    },
+    Request: {
+      cpd: {
+        ...anisette,
+        bootstrap: true, // All implementations set this to true
+        icscrec: true, // Only AltServer sets this to true
+        pbe: false, // All implementations explicitly set this to false
+        prkgen: true,
+        svct: "iCloud", // In certain circumstances, this can be 'iTunes' or 'iCloud'
+      },
+      ...params,
+    },
+  };
+
+  return await fetch("https://gsa.apple.com/grandslam/GsService2", {
+    method: "POST",
+    headers: {
+      "Content-Type": "text/x-xml-plist",
+      Accept: "*/*",
+      "User-Agent": "akd/1.0 CFNetwork/978.0.7 Darwin/18.7.0",
+      "X-MMe-Client-Info": anisette["X-MMe-Client-Info"],
+    },
+    body: TauriBody.text(buildPlist(body)),
+    responseType: 2,
+  });
+};
 export const authenticate = async () => {
-  console.log(`Authenticating with Apple`);
+  const anisette = await getAnisette(true);
 
-  const salt = new Uint8Array([123, 235, 5, 4, 65, 97, 43, 100]);
-  const username = "email@test.com";
-  let password = "superSecureP@ssw0rd";
-  console.log(
-    `generating salt with *****@${
-      username.split("@")[1]
-    } and password ${"*".repeat(password.length)}`
-  );
+  const username = "";
+  console.log(`generating A key`);
 
-  const x = await srp.KDFSHA512;
-  console.log(`kdfsha512: ${x}`);
-  const client = new srp.SRP(srp.G4096);
-  await client.Setup(srp.Mode.Client, x, null);
+  const client = new srp.SRP(srp.G2048);
+  await client.Setup(srp.Mode.Client, null, null);
 
   const A = await client.EphemeralPublic();
-  console.log(`client public key A: ${A}`);
+
+  let res = await authFetch(
+    anisette,
+    {
+      A2k: Buffer.from(bigintToBase64(A), "base64"),
+      ps: ["s2k", "s2k_fo"],
+      u: username.toLowerCase(),
+      o: "init",
+    },
+    "A2k"
+  );
+  console.log(res);
 };
