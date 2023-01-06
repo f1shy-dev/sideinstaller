@@ -7,6 +7,8 @@ const fetchDevicesAndPaginate = async (container) => {
   let devices = await getDevices();
   if (devices.length === 0) {
     list.innerHTML = `<p class="text-center text-gray-300 mt-4">No devices found, try refreshing...</div>`;
+    document.querySelector("#refresh-indicator").style.display = "none";
+    document.querySelector("#refresh-devices").style.display = "flex";
     return;
   }
   let elements = devices.map((device) => {

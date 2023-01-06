@@ -1,4 +1,4 @@
-import srp from "@elliotcourant/srp.js";
+import srp from "srp-js";
 
 export const authenticate = async () => {
     console.log(`Authenticating with Apple`);
@@ -11,7 +11,7 @@ export const authenticate = async () => {
         } and password ${"*".repeat(password.length)}`
     );
 
-    const x = await srp.KDFSHA512(salt, username);
+    const x = await srp.KDFSHA512
     console.log(`kdfsha512: ${x}`);
     const client = new srp.SRP(srp.G4096);
     await client.Setup(srp.Mode.Client, x, null);
