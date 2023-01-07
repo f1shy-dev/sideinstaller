@@ -2,6 +2,7 @@ import srp from "@f1shy-dev/srp.js";
 import { getAnisette } from "./anisette";
 import { build as buildPlist } from "plist";
 import { bigintToBase64 } from "bigint-conversion";
+import { pbkdf2 } from "pbkdf2";
 const { fetch, Body: TauriBody } = window.__TAURI__.http;
 
 const authFetch = async (anisette, params) => {
@@ -45,6 +46,8 @@ export const authenticate = async () => {
 
   const A = await client.EphemeralPublic();
 
+  srp.KDFSHA256();
+
   let res = await authFetch(
     anisette,
     {
@@ -55,5 +58,7 @@ export const authenticate = async () => {
     },
     "A2k"
   );
-  console.log(res);
+
+  //   pbkdf2(password, "salt", 1, 32, "sha256");
+  console.log(res.data);
 };
