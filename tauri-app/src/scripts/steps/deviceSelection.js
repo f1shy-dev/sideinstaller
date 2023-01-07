@@ -1,6 +1,7 @@
 import { getDevices } from "../device";
 import { template } from "../helpers";
 import { deviceCard } from "../templates";
+import { nextStep } from "../wizard";
 
 const fetchDevicesAndPaginate = async (container, retry, gap) => {
   let list = container.querySelector("#device-list");
@@ -26,11 +27,12 @@ const fetchDevicesAndPaginate = async (container, retry, gap) => {
       { ...device },
       {
         "#pairing-file": (e) => {
-          console.log(
-            `Generating pairing file for ${e.target.parentElement.parentElement.getAttribute(
-              "udid"
-            )}`
-          );
+          console.log(`Generating pairing file for ${device.udid}`);
+        },
+        "#install-app": (e) => {
+          nextStep({
+            device,
+          });
         },
       },
       ["w-full"]
@@ -65,7 +67,7 @@ const step = {
         });
     },
   ],
-  next: "anisette",
+  next: "apple-login",
 };
 
 export default step;

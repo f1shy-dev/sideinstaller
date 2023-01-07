@@ -11,8 +11,34 @@
   <body
     class="bg-[#2f2f2f] font-['Poppins'] overflow-x-hidden scrollbar-thin scrollbar-track-transparent scrollbar-thumb-neutral-800"
   >
+    <div
+      id="toast-box"
+      class="flex flex-col fixed bottom-0 right-0 mb-4 gap-2"
+    ></div>
+
+    <!-- small slidein/out toast window fixed to the bottom right -->
+
     <div class="flex flex-col w-screen h-screen px-6 items-center">
       <h1 class="text-white text-2xl font-semibold mt-4">InstallerDemo</h1>
+      <!-- debug button fixed to top right -->
+      <button
+        id="debug-button"
+        class="bg-[#0f0f0f] text-white p-2 w-10 h-10 items-center justify-center rounded-lg hover:text-purple-300 transition-colors duration-200 fixed top-3 right-3"
+        type="button"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+        >
+          <path d="M0 0h24v24H0V0z" fill="none" />
+          <path
+            fill="currentColor"
+            d="M12.09 2.91C10.08.9 7.07.49 4.65 1.67L8.28 5.3c.39.39.39 1.02 0 1.41L6.69 8.3c-.39.4-1.02.4-1.41 0L1.65 4.67C.48 7.1.89 10.09 2.9 12.1c1.86 1.86 4.58 2.35 6.89 1.48l7.96 7.96c1.03 1.03 2.69 1.03 3.71 0 1.03-1.03 1.03-2.69 0-3.71L13.54 9.9c.92-2.34.44-5.1-1.45-6.99z"
+          />
+        </svg>
+      </button>
 
       <div
         class="flex flex-col items-center w-full h-full"
@@ -79,9 +105,74 @@
             </p>
           </div>
         </div>
+        <div
+          class="flex flex-col w-full h-full items-center justify-center max-w-sm"
+          id="apple-login"
+        >
+          <div class="flex w-full flex-col">
+            <h2 class="text-white">Login to your Apple ID</h2>
+            <p class="text-sm text-gray-300">
+              Your Apple ID and password are not saved and are only sent to
+              Apple for authentication and signing purposes.
+            </p>
+          </div>
+          <div class="flex gap-2 flex-col w-full items-center mt-4">
+            <div class="flex gap-2 w-full">
+              <input
+                id="appleid-email"
+                class="bg-[#0f0f0f] text-white px-4 py-3 rounded-lg w-full focus:ring-purple-300 focus:ring-2 transition-all duration-100 outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                type="text"
+                placeholder="Apple ID Email"
+              />
+            </div>
+            <div class="flex gap-2 w-full">
+              <input
+                id="appleid-password"
+                class="bg-[#0f0f0f] text-white px-4 py-3 rounded-lg w-full focus:ring-purple-300 focus:ring-2 transition-all duration-100 outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                type="password"
+                placeholder="Password"
+              />
+            </div>
+            <button
+              id="login-btn"
+              class="bg-purple-500 text-white px-4 py-3 rounded-lg w-full"
+              type="button"
+            >
+              Login
+            </button>
+            <button
+              disabled
+              id="login-btn-loading"
+              class="bg-purple-500 text-white px-4 py-3 rounded-lg w-full items-center justify-center gap-2 pointer-events-none hidden"
+              type="button"
+            >
+              <svg
+                class="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                ></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              Logging you in...
+            </button>
+          </div>
+        </div>
       </div>
       <div class="flex-grow"></div>
-      <div class="flex gap-2 mb-2">
+      <div class="flex gap-2 mb-2 hidden" id="debug-buttons-section">
         <button
           id="get-devices"
           class="bg-[#0f0f0f] text-white px-3 py-2 rounded-lg"
@@ -112,7 +203,6 @@
         </button> -->
       </div>
 
-      <div class="flex gap-2 mt-2" id="device-list"></div>
       <!-- 
       <p
         id="log-window"

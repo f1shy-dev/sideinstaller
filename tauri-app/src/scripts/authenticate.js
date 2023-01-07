@@ -35,10 +35,10 @@ const authFetch = async (anisette, params) => {
     responseType: 2,
   });
 };
-export const authenticate = async () => {
+
+export const authenticate = async (username, password) => {
   const anisette = await getAnisette(true);
 
-  const username = "";
   console.log(`generating A key`);
 
   const client = new srp.SRP(srp.G2048);

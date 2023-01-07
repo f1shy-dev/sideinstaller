@@ -35,4 +35,10 @@ let deviceCard = `
 </div>
 `;
 
-export { deviceCard };
+const toastCard = `
+<div id="toast-{{uniqueid}}" class="pr-4 transform transition ease-in-out duration-400 translate-x-full">
+    <div class="bg-red-500 text-white rounded-lg px-4 py-3 shadow-lg text-sm max-w-xs" id="toast-text">{{msg}}</div>
+</div>
+`;
+
+export { deviceCard, toastCard };
