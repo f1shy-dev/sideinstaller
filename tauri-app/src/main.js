@@ -10,13 +10,11 @@ const { appWindow } = window.__TAURI__.window;
     .getElementById("titlebar-minimize")
     .addEventListener("click", () => appWindow.minimize());
 
-  const noDragSelector = "input, a, button"; // CSS selector
-  document
-    .querySelector(".drag-region")
-    .addEventListener("mousedown", async (e) => {
-      if (e.target.closest(noDragSelector)) return; // a non-draggable element either in target or its ancestors
-      await appWindow.startDragging();
-    });
+  const noDragSelector = "input, a, button, input *, a *, button *"; // CSS selector
+  document.addEventListener("mousedown", async (e) => {
+    if (e.target.closest(noDragSelector)) return; // a non-draggable element either in target or its ancestors
+    await appWindow.startDragging();
+  });
 
   document
     .getElementById("titlebar-close")
