@@ -2,7 +2,7 @@
   "build": {
     "beforeDevCommand": "yarn dev",
     "beforeBuildCommand": "yarn build",
-    "devPath": "../dist",
+    "devPath": "http://localhost:1234",
     "distDir": "../dist",
     "withGlobalTauri": true
   },
@@ -32,6 +32,12 @@
       },
       "os": {
         "all": true
+      },
+      "window": {
+        "close": true,
+        "minimize": true,
+        "maximize": false,
+        "startDragging": true
       }
     },
     "bundle": {
@@ -76,10 +82,11 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
-        "resizable": true,
+        "height": 534,
+        "resizable": false,
         "title": "sideinst",
-        "width": 800
+        "width": 384,
+        "decorations": false
       }
     ]
   }

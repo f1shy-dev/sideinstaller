@@ -8,8 +8,8 @@
     "tauri": "tauri",
     "dev": "parcel",
     "prebuild": "run-script-os",
-    "prebuild:nix": "rm -rf dist",
-    "prebuild:windows": "rd /s /q dist",
+    "prebuild:nix": "rm -rf dist .parcel-cache",
+    "prebuild:windows": "rd /s /q dist .parcel-cache",
     "build": "parcel build --no-source-maps --public-url ./"
   },
   "devDependencies": {
