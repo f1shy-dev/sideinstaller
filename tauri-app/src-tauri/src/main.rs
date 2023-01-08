@@ -13,9 +13,7 @@ use rusty_libimobiledevice::{
     services::userpref,
 };
 use serde_json::{json, Result, Value};
-use sha2::Sha256;
-use srp::client::SrpClient;
-use srp::groups::G_2048;
+use tauri::Manager;
 
 // get device name
 #[tauri::command]
@@ -69,6 +67,14 @@ fn get_anisette_macos() -> String {
 
 fn main() {
     tauri::Builder::default()
+        .setup(|app| {
+            #[cfg(debug_assertions)] // only include this code on debug builds
+            {
+                let window = app.get_window("main").unwrap();
+                window.open_devtools();
+            }
+            Ok(())
+        })
         .invoke_handler(tauri::generate_handler![
             get_devices,
             export_pairing_file,

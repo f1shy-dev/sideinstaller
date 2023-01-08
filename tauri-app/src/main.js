@@ -1,5 +1,5 @@
 import { onClick } from "./scripts/helpers.js";
-import { authenticate } from "./scripts/authenticate.js";
+import { authenticate } from "./scripts/authenticate_srp3.js";
 import { getAnisette } from "./scripts/anisette.js";
 import { initWizard } from "./scripts/wizard.js";
 import { getDevices } from "./scripts/device.js";
@@ -28,5 +28,7 @@ const { appWindow } = window.__TAURI__.window;
     console.log(await getDevices());
   });
   onClick("#get-anisette", getAnisette);
-  onClick("#authenticate", authenticate);
+  onClick("#authenticate", () =>
+    authenticate(process.env.TEST_EMAIL, process.env.TEST_PASSWORD)
+  );
 })();
