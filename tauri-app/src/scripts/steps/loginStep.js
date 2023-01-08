@@ -1,5 +1,5 @@
 import { showErrorToast } from "../helpers";
-import { authenticate } from "../authenticate";
+import { authenticate } from "../authenticate_srp2";
 
 const emailregex =
   /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;

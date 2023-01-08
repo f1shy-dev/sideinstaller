@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@f1shy-dev/srp.js": "https://github.com/f1shy-dev/srp.js"
+  }
+}

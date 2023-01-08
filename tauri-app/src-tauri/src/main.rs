@@ -3,12 +3,19 @@
     windows_subsystem = "windows"
 )]
 
+extern crate rand_core;
+extern crate reqwest;
+extern crate srp;
 use anisette_kit::base::anisette_data;
+use rand_core::RngCore;
 use rusty_libimobiledevice::{
     idevice::{self, Device},
     services::userpref,
 };
 use serde_json::{json, Result, Value};
+use sha2::Sha256;
+use srp::client::SrpClient;
+use srp::groups::G_2048;
 
 // get device name
 #[tauri::command]

@@ -24,8 +24,16 @@
     js-tokens "^4.0.0"
 
 "@f1shy-dev/srp.js@https://github.com/f1shy-dev/srp.js":
-  version "0.0.5"
-  resolved "https://github.com/f1shy-dev/srp.js#622262f56461676a3ed937cc88089f0d3cddf69b"
+  version "0.0.7"
+  resolved "https://github.com/f1shy-dev/srp.js#4cbc7a47cf8844e13eadaa03378d0073bc962d33"
+
+"@getinsomnia/srp-js@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@getinsomnia/srp-js/-/srp-js-0.3.0.tgz#ede7cab1c400872fde5604251d47d8cca3b27aa5"
+  integrity sha512-2p/MdA2lQD8J0IicOdm4brK8AnnXyZJm6QyVliexWKtnDzSbQ6C8kCrJ9WlT4I6rUrwZwbzgF3WE9X/zox6rMg==
+  dependencies:
+    buffer "^6.0.3"
+    jsbn "^1.1.0"
 
 "@jridgewell/gen-mapping@^0.3.0":
   version "0.3.2"
@@ -1024,6 +1032,14 @@ buffer@^5.0.0:
     base64-js "^1.3.1"
     ieee754 "^1.1.13"
 
+buffer@^6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/buffer/-/buffer-6.0.3.tgz#2ace578459cc8fbe2a70aaa8f52ee63b6a74c6c6"
+  integrity sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==
+  dependencies:
+    base64-js "^1.3.1"
+    ieee754 "^1.2.1"
+
 call-bind@^1.0.0, call-bind@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/call-bind/-/call-bind-1.0.2.tgz#b1d4e89e688119c3c9a903ad30abb2f6a919be3c"
@@ -1548,7 +1564,7 @@ htmlparser2@^7.1.1:
     domutils "^2.8.0"
     entities "^3.0.1"
 
-ieee754@^1.1.13:
+ieee754@^1.1.13, ieee754@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.2.1.tgz#8eb7a10a63fff25d15a57b001586d177d1b0d352"
   integrity sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==
@@ -1655,6 +1671,11 @@ jsbn@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
   integrity sha512-UVU9dibq2JcFWxQPA6KCqj5O42VOmAY3zQUfEKxU0KpTGXwNoCjkX1e13eHNvw/xPynt6pU0rZ1htjWTNTSXsg==
+
+jsbn@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-1.1.0.tgz#b01307cb29b618a1ed26ec79e911f803c4da0040"
+  integrity sha512-4bYVV3aAMtDTTu4+xsDYa6sy9GyJ69/amsu9sYF2zqjiEoZA5xJi3BrfX3uY+/IekIu7MwdObdbDWpoZdBv3/A==
 
 json-parse-even-better-errors@^2.3.0:
   version "2.3.1"
