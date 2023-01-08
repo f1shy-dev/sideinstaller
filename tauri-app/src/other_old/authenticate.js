@@ -1,11 +1,11 @@
+import srp from "@f1shy-dev/srp.js";
 import { getAnisette } from "./anisette";
 import { build as buildPlist, parse as parsePlist } from "plist";
 import { bigintToBase64, bigintToBuf, bufToBigint } from "bigint-conversion";
 import { pbkdf2 } from "pbkdf2";
+import { KDFSHA256, sumSHA256 } from "@f1shy-dev/srp.js/src/kdf";
 import { showErrorToast } from "./helpers";
-import crypto from "crypto";
 const { fetch, Body: TauriBody } = window.__TAURI__.http;
-import { Client, params as srpParams } from "./srp/srp.js";
 
 const authFetch = async (anisette, params) => {
   let body = {
@@ -40,23 +40,16 @@ const authFetch = async (anisette, params) => {
 
 export const authenticate = async (username, password) => {
   const anisette = await getAnisette(true);
-  const _ = null;
 
   console.log(`generating A key`);
 
-  const params = srpParams[2048];
-  console.log(params);
-  const secret1 = await new Promise((r) =>
-    crypto.randomBytes(32, (err, buf) => r(buf.buffer))
-  );
+  const client = new srp.SRP(srp.G2048);
+  await client.Setup(srp.Mode.Client, null, null);
 
-  //buf to uint8array
-
-  var c = new Client(params, new Uint8Array(secret1));
-  var srpA = c.computeA();
+  const A = await client.EphemeralPublic();
 
   let response = await authFetch(anisette, {
-    A2k: srpA,
+    A2k: Buffer.from(bigintToBase64(A), "base64"),
     ps: ["s2k", "s2k_fo"],
     u: username.toLowerCase(),
     o: "init",
@@ -73,11 +66,35 @@ export const authenticate = async (username, password) => {
     );
   }
 
-  const salt = data["s"];
-  c.computeX(password, salt, data["i"]);
-  c.setB(data["B"], username.toLowerCase(), salt);
+  // convert salt from base64 to uint8array
+  const saltBuffer = data["s"];
+  const saltU8Array = new Uint8Array(saltBuffer.buffer);
 
-  const M = c.computeM1();
+  let encryptedPassword = await new Promise((r) =>
+    pbkdf2(password, saltBuffer, data["i"], 32, "sha256", (err, k) => r(k))
+  );
+
+  // H(s | H( ":" | p))
+  //buffer as string
+  let cryptPassStr = new TextDecoder().decode(encryptedPassword);
+  let passU8 = new TextEncoder().encode(`:${cryptPassStr}`);
+  let passSum = await sumSHA256(passU8);
+
+  let xSum = new Uint8Array(saltU8Array.length + passSum.length);
+  xSum.set(saltU8Array);
+  xSum.set(passSum, saltU8Array.length);
+
+  console.log(await KDFSHA256(saltU8Array, username, cryptPassStr, false));
+  console.log(await sumSHA256(xSum));
+
+  client.setXorV(
+    srp.Mode.Client,
+    await KDFSHA256(saltU8Array, username, password, false)
+  );
+
+  client.SetOthersPublic(bufToBigint(data["B"]));
+  const key = await client.Key();
+  const M = await client.M(saltU8Array, username);
   console.log(M);
 
   const response2 = await authFetch(anisette, {

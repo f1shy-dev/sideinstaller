@@ -1,5 +1,5 @@
 import { onClick } from "./scripts/helpers.js";
-import { authenticate } from "./scripts/authenticate_srp3.js";
+import { authenticate } from "./scripts/authenticate.js";
 import { getAnisette } from "./scripts/anisette.js";
 import { initWizard } from "./scripts/wizard.js";
 import { getDevices } from "./scripts/device.js";
