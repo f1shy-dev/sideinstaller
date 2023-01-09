@@ -16,7 +16,7 @@ window.deriveKey = async (saltB64, un, pass, iterations) => {
       resolve(key);
     });
   });
-  const privateKey = srp.derivePrivateKey(salt.toString("hex"), un, cryptPass);
+  const privateKey = srp.derivePrivateKey(salt.toString("hex"), "", cryptPass);
   console.log(`passHash`, passHash);
   console.log(`cryptPass`, cryptPass);
   console.log(`cryptPass b64`, cryptPass.toString("base64"));
@@ -58,6 +58,13 @@ const authFetch = async (anisette, params) => {
   });
 };
 
+const checkError = (data) => {
+  data["Status"] && (data = data["Status"]);
+  if (data["ec"] !== 0)
+    return { err: true, msg: `Error: ${data["ec"]}: ${data["em"]}` };
+  return { err: false };
+};
+
 export const authenticate = async (username, password) => {
   const anisette = await getAnisette(true);
   const _ = null;
@@ -78,6 +85,14 @@ export const authenticate = async (username, password) => {
 
   let data = parsePlist(response.data)["Response"];
   console.log(data, response.ok);
+
+  let hasErr = checkError(data);
+  if (hasErr.err) {
+    showErrorToast(hasErr.msg);
+    console.error(hasErr.msg);
+    return { success: false };
+  }
+
   if (data["sp"] != "s2k") {
     showErrorToast(
       `There was an error authenticating you. Please report this (with log info).`
@@ -100,7 +115,7 @@ export const authenticate = async (username, password) => {
 
   const privateKey = srp.derivePrivateKey(
     salt.toString("hex"),
-    username,
+    "",
     encryptedPass
   );
 
@@ -134,4 +149,12 @@ export const authenticate = async (username, password) => {
 
   const data2 = parsePlist(response2.data)["Response"];
   console.log(JSON.stringify(data2["Status"], null, 2));
+  let hasErr2 = checkError(data2);
+  if (hasErr2.err) {
+    showErrorToast(hasErr2.msg);
+    console.error(hasErr2.msg);
+    return { success: false };
+  }
+
+  return { success: true };
 };

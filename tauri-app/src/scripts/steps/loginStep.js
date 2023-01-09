@@ -26,7 +26,11 @@ const step = {
 
           document.querySelector("#login-btn").style.display = "none";
           document.querySelector("#login-btn-loading").style.display = "flex";
-          await authenticate(email, password);
+          const auth = await authenticate(email, password);
+          if (auth.success == false) {
+            document.querySelector("#login-btn").style.display = "block";
+            document.querySelector("#login-btn-loading").style.display = "none";
+          }
         });
     },
   ],
