@@ -4,7 +4,7 @@ import { build as buildPlist, parse as parsePlist } from "plist";
 import { bigintToBase64, bigintToBuf, bufToBigint } from "bigint-conversion";
 import { pbkdf2 } from "pbkdf2";
 import { KDFSHA256, sumSHA256 } from "@f1shy-dev/srp.js/src/kdf";
-import { showErrorToast } from "./helpers";
+import { showErrorToast } from "../scripts/helpers";
 const { fetch, Body: TauriBody } = window.__TAURI__.http;
 
 const authFetch = async (anisette, params) => {
