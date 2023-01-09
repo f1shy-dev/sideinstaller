@@ -7,6 +7,25 @@ import crypto from "crypto";
 const { fetch, Body: TauriBody } = window.__TAURI__.http;
 
 import srp from "secure-remote-password/client";
+window.deriveKey = async (saltB64, un, pass, iterations) => {
+  let salt = Buffer.from(saltB64, "base64");
+  const passHash = crypto.createHash("sha256").update(pass).digest();
+  const cryptPass = await new Promise((resolve, reject) => {
+    pbkdf2(passHash, salt, iterations, 32, "sha256", (err, key) => {
+      if (err) reject(err);
+      resolve(key);
+    });
+  });
+  const privateKey = srp.derivePrivateKey(salt.toString("hex"), un, cryptPass);
+  console.log(`passHash`, passHash);
+  console.log(`cryptPass`, cryptPass);
+  console.log(`cryptPass b64`, cryptPass.toString("base64"));
+  console.log(`x key`, privateKey);
+  console.log(`x key b64`, Buffer.from(privateKey, "hex").toString("base64"));
+  console.log(`x key bigint`, BigInt(parseInt(privateKey, 16)).toString());
+
+  return privateKey;
+};
 
 const authFetch = async (anisette, params) => {
   let body = {
@@ -46,11 +65,12 @@ export const authenticate = async (username, password) => {
   console.log(`generating A key`);
 
   //buf to uint8array
+  console.log(Buffer.from(""));
 
-  const srpA = srp.generateEphemeral().public;
+  const srpA = srp.generateEphemeral();
 
   let response = await authFetch(anisette, {
-    A2k: Buffer.from(srpA, "hex"),
+    A2k: Buffer.from(srpA.public, "hex"),
     ps: ["s2k", "s2k_fo"],
     u: username.toLowerCase(),
     o: "init",
@@ -66,18 +86,46 @@ export const authenticate = async (username, password) => {
       `Implementation only supports s2k. Server returned ${data["sp"]}`
     );
   }
-  return;
 
   const salt = data["s"];
-  c.computeX(password, salt, data["i"]);
-  c.setB(data["B"], username.toLowerCase(), salt);
+  console.log("salt", salt.toString("base64"));
 
-  const M = c.computeM1();
-  console.log(M);
+  const passHash = crypto.createHash("sha256").update(password).digest();
+  const encryptedPass = await new Promise((resolve, reject) => {
+    pbkdf2(passHash, salt, data["i"], 32, "sha256", (err, key) => {
+      if (err) reject(err);
+      resolve(key);
+    });
+  });
+
+  const privateKey = srp.derivePrivateKey(
+    salt.toString("hex"),
+    username,
+    encryptedPass
+  );
+
+  const clientSession = srp.deriveSession(
+    srpA.secret,
+    data["B"].toString("hex"),
+    salt.toString("hex"),
+    username.toLowerCase(),
+    privateKey
+  );
+
+  console.log("sha256(pass)", passHash);
+  console.log("pbkdf2(pass, salt, data[i], 32, sha256)", encryptedPass);
+  console.log(
+    "pbkdf2(pass, salt, data[i], 32, sha256)",
+    encryptedPass.toString("base64")
+  );
+
+  console.log("x key", Buffer.from(privateKey, "hex").toString("base64"));
+  console.log("M1 proof", clientSession.proof);
+  console.log(BigInt(parseInt(privateKey, 16)).toString());
 
   const response2 = await authFetch(anisette, {
     c: data["c"],
-    M1: M,
+    M1: Buffer.from(clientSession.proof, "hex"),
     u: username.toLowerCase(),
     o: "complete",
   });
@@ -85,5 +133,5 @@ export const authenticate = async (username, password) => {
   console.log(response2);
 
   const data2 = parsePlist(response2.data)["Response"];
-  console.log(data2);
+  console.log(JSON.stringify(data2["Status"], null, 2));
 };
