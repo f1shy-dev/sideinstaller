@@ -90,6 +90,7 @@ function getM1(params, A_buf, B_buf, K_buf, username, salt) {
     .digest();
   return new Uint8Array(h);
 }
+
 function getM2(params, A_buf, M_buf, K_buf) {
   const h = createHash(params.hash)
     .update(A_buf)

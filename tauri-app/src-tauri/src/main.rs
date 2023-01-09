@@ -3,11 +3,11 @@
     windows_subsystem = "windows"
 )]
 
-extern crate rand_core;
-extern crate reqwest;
-extern crate srp;
+// extern crate rand_core;
+// extern crate reqwest;
+// extern crate srp;
 use anisette_kit::base::anisette_data;
-use rand_core::RngCore;
+// use rand_core::RngCore;
 use rusty_libimobiledevice::{
     idevice::{self, Device},
     services::userpref,

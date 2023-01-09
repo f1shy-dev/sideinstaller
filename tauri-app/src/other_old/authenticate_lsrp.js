@@ -1,11 +1,11 @@
-import { getAnisette } from "./anisette";
+import { getAnisette } from "../scripts/anisette";
 import { build as buildPlist, parse as parsePlist } from "plist";
 import { bigintToBase64, bigintToBuf, bufToBigint } from "bigint-conversion";
 import { pbkdf2 } from "pbkdf2";
-import { showErrorToast } from "./helpers";
+import { showErrorToast } from "../scripts/helpers";
 import crypto from "crypto";
 const { fetch, Body: TauriBody } = window.__TAURI__.http;
-import { Client, params as srpParams } from "./srp/srp.js";
+import { Client, params as srpParams } from "../scripts/srp/srp.js";
 
 const authFetch = async (anisette, params) => {
   let body = {
